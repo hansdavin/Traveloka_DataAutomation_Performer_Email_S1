@@ -1,0 +1,331 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="DownloadFileUrl" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System.Text.RegularExpressions" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_mailMessage" Type="InArgument(snm:MailMessage)" />
+    <x:Property Name="in_dicPath" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="in_datePeriod" Type="InArgument(s:DateTime)" />
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_isRerun" Type="InArgument(x:Boolean)" />
+    <x:Property Name="out_strRawFilePath" Type="OutArgument(x:String)" />
+    <x:Property Name="io_dateEndPeriodLocal" Type="InOutArgument(s:DateTime)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>760,3692</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>DownloadFileUrl_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="31">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Management.Automation</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="54">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Management.Automation</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.Watcher</AssemblyReference>
+      <AssemblyReference>System.IO.Packaging</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="DownloadFileUrl" sap:VirtualizedContainerService.HintSize="750.4,3627.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="str:MatchCollection" Name="mcolDownloadLinks" />
+      <Variable x:TypeArguments="x:String" Name="strCommand" />
+      <Variable x:TypeArguments="x:String" Name="strRawFilePath" />
+      <Variable x:TypeArguments="x:String" Name="strRawFileName" />
+      <Variable x:TypeArguments="x:String" Name="strFilePath" />
+      <Variable x:TypeArguments="s:String[]" Name="arrCompressedFileExt" />
+      <Variable x:TypeArguments="x:String" Name="strFileExtension" />
+      <Variable x:TypeArguments="str:MatchCollection" Name="mcolDateMatch" />
+      <Variable x:TypeArguments="scg:List(s:DateTime)" Name="listStartEndRangeLocal" />
+      <Variable x:TypeArguments="s:DateTime" Name="dateStartPeriodLocal" />
+      <Variable x:TypeArguments="s:DateTime" Name="dateEndPeriodLocal" />
+      <Variable x:TypeArguments="x:String" Name="strRawFileNameQueue" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="688,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[in_TransactionItem.SpecificContent(&quot;PID&quot;).ToString + &quot;: No attachment here...&quot;]" />
+    <Assign DisplayName="Assign - Collect url from body email" sap:VirtualizedContainerService.HintSize="688,81.6" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="str:MatchCollection">[mcolDownloadLinks]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="str:MatchCollection">[System.Text.RegularExpressions.Regex.Matches(in_mailMessage.Body, "(?&lt;=href="")(https://[^""]*)")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="// Regex pattern For matching the Date format &quot;dd/MM/yyyy&quot;&#xA;String datePattern = @&quot;\d{2}/\d{2}/\d{4}&quot;;&#xA;&#xA;// Use Regex.Match To find the start Date&#xA;out_mcolDateMatch = System.Text.RegularExpressions.Regex.Matches(in_strSubject, datePattern);&#xA;string format = &quot;dd/MM/yyyy&quot;;&#xA;&#xA;List&lt;DateTime&gt; dateList = new List&lt;DateTime&gt;();&#xA;&#xA;DateTime startDate = DateTime.ParseExact(out_mcolDateMatch[0].Value, format, System.Globalization.CultureInfo.InvariantCulture);&#xA;DateTime endDate = DateTime.ParseExact(out_mcolDateMatch[1].Value, format, System.Globalization.CultureInfo.InvariantCulture);&#xA;//if(!in_isRerun)&#xA;//{&#xA;&#x9;//startDate = startDate.AddDays(-1);&#xA;&#x9;//endDate = endDate.AddDays(-1);&#xA;//}&#xA;Console.WriteLine(startDate.ToString(&quot;dd-MM-yyyy&quot;));&#xA;Console.WriteLine(endDate.ToString(&quot;dd-MM-yyyy&quot;));&#xA;// Include the start date and end date, along with the dates in between, in the list.&#xA;for (DateTime date = startDate; date &lt;= endDate; date = date.AddDays(1))&#xA;{&#xA;    dateList.Add(date);&#xA;}&#xA;&#xA;out_dateTimeRange = dateList;&#xA;out_dateStartPeriod = startDate;&#xA;out_dateEndPeriod = endDate;" DisplayName="Invoke Code - Create list of date from subject" sap:VirtualizedContainerService.HintSize="688,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_4" Language="CSharp">
+      <ui:InvokeCode.Arguments>
+        <OutArgument x:TypeArguments="scg:List(s:DateTime)" x:Key="out_dateTimeRange">[listStartEndRangeLocal]</OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_strSubject">[in_mailMessage.Subject]</InArgument>
+        <OutArgument x:TypeArguments="str:MatchCollection" x:Key="out_mcolDateMatch">[mcolDateMatch]</OutArgument>
+        <InArgument x:TypeArguments="x:Boolean" x:Key="in_isRerun">[in_isRerun]</InArgument>
+        <OutArgument x:TypeArguments="s:DateTime" x:Key="out_dateStartPeriod">[dateStartPeriodLocal]</OutArgument>
+        <OutArgument x:TypeArguments="s:DateTime" x:Key="out_dateEndPeriod">[io_dateEndPeriodLocal]</OutArgument>
+      </ui:InvokeCode.Arguments>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:InvokeCode>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Custom_Flow\GetSetAsset.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="688,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Custom_Flow\GetSetAsset.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="s:DateTime" x:Key="in_dateStartPeriod">[dateStartPeriodLocal]</InArgument>
+        <InArgument x:TypeArguments="s:DateTime" x:Key="in_dateEndPeriod">[io_dateEndPeriodLocal]</InArgument>
+        <InArgument x:TypeArguments="scg:List(s:DateTime)" x:Key="in_listStartEndRange">[listStartEndRangeLocal]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_assetName">[in_Config("GlobalVarAsset").ToString]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <If Condition="[mcolDownloadLinks.Count() &gt; 0]" DisplayName="If link found download, else throw business exception" sap:VirtualizedContainerService.HintSize="688,2902.4" sap2010:WorkflowViewState.IdRef="If_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="654.4,2719.2" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="611.2,2629.6" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[mcolDownloadLinks]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="downloadLink" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="576,2504.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[downloadLink.ToString().Contains(&quot;rpa_acc&quot;)]" DisplayName="If the link contains rpa_acc" sap:VirtualizedContainerService.HintSize="513.6,2392.8" sap2010:WorkflowViewState.IdRef="If_2">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="480,2004.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign DisplayName="Assign - remove unnecessary symbol" sap:VirtualizedContainerService.HintSize="436.8,80.8" sap2010:WorkflowViewState.IdRef="Assign_2">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Object">[downloadLink]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Object">[downloadLink.ToString().Split("&gt;")(0)]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:InvokeCode ContinueOnError="{x:Null}" Code="String pattern = @&quot;/rpa_acc/(.*?)\?&quot;;&#xA;var match = System.Text.RegularExpressions.Regex.Match(in_downloadLink, pattern);&#xA;&#xA;if (match.Success)&#xA;{&#xA;    String extractedValue = match.Groups[1].Value;&#xA;&#x9;out_strRawFileName = System.IO.Path.GetFileName(extractedValue);&#xA;    Console.WriteLine(out_strRawFileName);&#xA;}&#xA;else&#xA;{&#xA;    Console.WriteLine(&quot;Pattern not found in the input string...&quot;);&#xA;}" DisplayName="Invoke Code - Get the file name from the download link" sap:VirtualizedContainerService.HintSize="436.8,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+                          <ui:InvokeCode.Arguments>
+                            <OutArgument x:TypeArguments="x:String" x:Key="out_strRawFileName">[strRawFileName]</OutArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_downloadLink">[downloadLink.ToString()]</InArgument>
+                          </ui:InvokeCode.Arguments>
+                        </ui:InvokeCode>
+                        <Assign sap:VirtualizedContainerService.HintSize="436.8,80.8" sap2010:WorkflowViewState.IdRef="Assign_3">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strRawFilePath]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[Path.Combine(in_dicPath("strRawFilePath"), in_TransactionItem.SpecificContent("Key").ToString(), in_datePeriod.Year.ToString, in_datePeriod.ToString("yyyy-MM-dd"))]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign sap:VirtualizedContainerService.HintSize="436.8,80.8" sap2010:WorkflowViewState.IdRef="Assign_4">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strFilePath]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[Path.Combine(in_dicPath("strMasterPath"), in_TransactionItem.SpecificContent("Key").ToString(), in_datePeriod.Year.ToString, in_datePeriod.ToString("yyyy-MM-dd"))]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="436.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[in_TransactionItem.SpecificContent(&quot;PID&quot;).ToString + &quot;: Download link - &quot; + downloadLink.ToString()]" />
+                        <ui:InvokeCode ContinueOnError="{x:Null}" Code="if (!Directory.Exists(in_strRawFilePath))&#xA;{&#xA;    Directory.CreateDirectory(in_strRawFilePath);&#xA;}&#xA;&#xA;string strFilePathWithoutDate = in_strFilePath.Substring(0, in_strFilePath.LastIndexOf('\\'));&#xA;if (!Directory.Exists(strFilePathWithoutDate))&#xA;{&#xA;    Directory.CreateDirectory(strFilePathWithoutDate);&#xA;}" DisplayName="Invoke Code - Create folder if not exists" sap:VirtualizedContainerService.HintSize="436.8,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
+                          <ui:InvokeCode.Arguments>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strRawFilePath">[strRawFilePath]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strFilePath">[strFilePath]</InArgument>
+                          </ui:InvokeCode.Arguments>
+                        </ui:InvokeCode>
+                        <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="436.8,396" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                          <TryCatch.Try>
+                            <ui:InvokeCode Code="using (System.Net.WebClient w = new System.Net.WebClient())&#xA;{&#xA;&#x9;// Check if the file already exists&#xA;    if (File.Exists(Path.Combine(in_strRawFilePath, in_strRawFileName)))&#xA;    {&#xA;        File.Delete(Path.Combine(in_strRawFilePath, in_strRawFileName));&#xA;    }&#xA;    w.DownloadFile(in_strDownloadLink, Path.Combine(in_strRawFilePath, in_strRawFileName));&#xA;}" ContinueOnError="False" DisplayName="Invoke Code - Download file overwrite" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_3" Language="CSharp">
+                              <ui:InvokeCode.Arguments>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_strDownloadLink">[downloadLink.ToString()]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">[strRawFileName]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_strRawFilePath">[strRawFilePath]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_strFilePath">[strFilePath]</InArgument>
+                              </ui:InvokeCode.Arguments>
+                            </ui:InvokeCode>
+                          </TryCatch.Try>
+                          <TryCatch.Catches>
+                            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ActivityAction x:TypeArguments="s:Exception">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                </ActivityAction.Argument>
+                                <Throw Exception="[new Exception(&quot;The file cannot be downloaded. Please check whether the download link has expired.&quot;)]" sap:VirtualizedContainerService.HintSize="334.4,90.4" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                              </ActivityAction>
+                            </Catch>
+                          </TryCatch.Catches>
+                        </TryCatch>
+                        <Assign sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_9">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strRawFileNameQueue]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[Path.Combine(strRawFilePath, strRawFileName)]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ExtractFiles.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="433.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Custom_Flow\ExtractFiles.xaml">
+                          <ui:InvokeWorkflowFile.Arguments>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">[strRawFileName]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strRawFilePath">[strRawFilePath]</InArgument>
+                            <OutArgument x:TypeArguments="x:String" x:Key="out_strRawFileName">[strRawFileName]</OutArgument>
+                            <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
+                          </ui:InvokeWorkflowFile.Arguments>
+                        </ui:InvokeWorkflowFile>
+                        <Assign sap:VirtualizedContainerService.HintSize="433.6,80.8" sap2010:WorkflowViewState.IdRef="Assign_8">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[out_strRawFilePath]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[strRawFileName]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="SplitExcelFile.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="337.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Custom_Flow\SplitExcelFile.xaml">
+                          <ui:InvokeWorkflowFile.Arguments>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strRawFilePath">[strRawFilePath]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">[strRawFileName]</InArgument>
+                            <InArgument x:TypeArguments="snm:MailMessage" x:Key="in_mailMessage">[in_mailMessage]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strFilePath">[strFilePath]</InArgument>
+                            <InArgument x:TypeArguments="s:DateTime" x:Key="in_datePeriod">[in_datePeriod]</InArgument>
+                            <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
+                            <InArgument x:TypeArguments="s:String[]" x:Key="in_arrCompressedFileExt">[arrCompressedFileExt]</InArgument>
+                            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                            <InArgument x:TypeArguments="x:Boolean" x:Key="in_isRerun">[in_isRerun]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileNameQueue">[strRawFileNameQueue]</InArgument>
+                          </ui:InvokeWorkflowFile.Arguments>
+                        </ui:InvokeWorkflowFile>
+                        <ui:Break sap:VirtualizedContainerService.HintSize="337.6,24.8" sap2010:WorkflowViewState.IdRef="Break_1" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="400,204.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="337.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;This is not download link: &quot; + downloadLink.ToString()]" />
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+          </ui:ForEach>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence sap:VirtualizedContainerService.HintSize="377.6,180" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Throw Exception="[new BusinessRuleException(String.Format(&quot;Report for current period: {0} possibly have different format from current rules. Please check manually in email inbox.&quot;, in_datePeriod.ToString(&quot;dd-MMM-yy&quot;)))]" sap:VirtualizedContainerService.HintSize="334.4,90.4" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </Sequence>
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>

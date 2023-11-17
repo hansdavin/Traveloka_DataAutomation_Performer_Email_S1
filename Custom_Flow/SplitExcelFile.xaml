@@ -1,0 +1,373 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="SplitExcelFile" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System.Text.RegularExpressions" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_strRawFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="in_strRawFileName" Type="InArgument(x:String)" />
+    <x:Property Name="in_mailMessage" Type="InArgument(snm:MailMessage)" />
+    <x:Property Name="in_strFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="in_datePeriod" Type="InArgument(s:DateTime)" />
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="in_arrCompressedFileExt" Type="InArgument(s:String[])" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_isRerun" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_strRawFileNameQueue" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:SplitExcelFile.in_arrCompressedFileExt>
+    <InArgument x:TypeArguments="s:String[]" />
+  </this:SplitExcelFile.in_arrCompressedFileExt>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>855.2,3804</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>SplitExcelFile_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="32">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="62">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.Watcher</AssemblyReference>
+      <AssemblyReference>System.IO.Packaging</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Linq.Async.Queryable</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="SplitExcelFile" sap:VirtualizedContainerService.HintSize="777.6,3739.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:String[]" Name="arrRawFileNames" />
+      <Variable x:TypeArguments="scg:List(s:DateTime)" Name="dateTimeRange" />
+      <Variable x:TypeArguments="str:MatchCollection" Name="mcolDateMatch" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtMomo" />
+      <Variable x:TypeArguments="x:String" Name="strFilePathWithoutDate" />
+      <Variable x:TypeArguments="x:String" Name="strCell" />
+      <Variable x:TypeArguments="x:String" Name="strFileExtension" />
+      <Variable x:TypeArguments="scg:List(s:DateTime)" Name="listStartEndRangeLocal" />
+      <Variable x:TypeArguments="s:DateTime" Name="dateStartPeriodLocal" />
+      <Variable x:TypeArguments="s:DateTime" Name="dateEndPeriodLocal" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="// Regex pattern For matching the Date format &quot;dd/MM/yyyy&quot;&#xA;String datePattern = @&quot;\d{2}/\d{2}/\d{4}&quot;;&#xA;&#xA;// Use Regex.Match To find the start Date&#xA;out_mcolDateMatch = System.Text.RegularExpressions.Regex.Matches(in_strSubject, datePattern);&#xA;string format = &quot;dd/MM/yyyy&quot;;&#xA;&#xA;List&lt;DateTime&gt; dateList = new List&lt;DateTime&gt;();&#xA;&#xA;DateTime startDate = DateTime.ParseExact(out_mcolDateMatch[0].Value, format, System.Globalization.CultureInfo.InvariantCulture);&#xA;DateTime endDate = DateTime.ParseExact(out_mcolDateMatch[1].Value, format, System.Globalization.CultureInfo.InvariantCulture);&#xA;&#xA;Console.WriteLine(startDate.ToString(&quot;dd-MM-yyyy&quot;));&#xA;Console.WriteLine(endDate.ToString(&quot;dd-MM-yyyy&quot;));&#xA;// Include the start date and end date, along with the dates in between, in the list.&#xA;for (DateTime date = startDate; date &lt;= endDate; date = date.AddDays(1))&#xA;{&#xA;    dateList.Add(date);&#xA;}&#xA;&#xA;out_dateTimeRange = dateList;&#xA;out_dateStartPeriod = startDate;&#xA;out_dateEndPeriod = endDate;" DisplayName="Invoke Code - Create list of date from subject" sap:VirtualizedContainerService.HintSize="715.2,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+      <ui:InvokeCode.Arguments>
+        <OutArgument x:TypeArguments="scg:List(s:DateTime)" x:Key="out_dateTimeRange">[dateTimeRange]</OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_strSubject">[in_mailMessage.Subject]</InArgument>
+        <OutArgument x:TypeArguments="str:MatchCollection" x:Key="out_mcolDateMatch">[mcolDateMatch]</OutArgument>
+        <InArgument x:TypeArguments="x:Boolean" x:Key="in_isRerun">[in_isRerun]</InArgument>
+        <OutArgument x:TypeArguments="s:DateTime" x:Key="out_dateStartPeriod">[dateStartPeriodLocal]</OutArgument>
+        <OutArgument x:TypeArguments="s:DateTime" x:Key="out_dateEndPeriod">[dateEndPeriodLocal]</OutArgument>
+      </ui:InvokeCode.Arguments>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:InvokeCode>
+    <Assign sap:VirtualizedContainerService.HintSize="715.2,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+      <Assign.To>
+        <OutArgument x:TypeArguments="scg:List(s:DateTime)">[listStartEndRangeLocal]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="scg:List(s:DateTime)">[dateTimeRange]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Custom_Flow\GetSetAsset.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="715.2,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Custom_Flow\GetSetAsset.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="s:DateTime" x:Key="in_dateStartPeriod">[dateStartPeriodLocal]</InArgument>
+        <InArgument x:TypeArguments="s:DateTime" x:Key="in_dateEndPeriod">[dateEndPeriodLocal]</InArgument>
+        <InArgument x:TypeArguments="scg:List(s:DateTime)" x:Key="in_listStartEndRange">[dateTimeRange]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_assetName">[in_Config("GlobalVarAsset").ToString]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <If Condition="[Not mcolDateMatch(0).ToString().Contains(mcolDateMatch(1).ToString())]" sap:VirtualizedContainerService.HintSize="715.2,3168.8" sap2010:WorkflowViewState.IdRef="If_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="637.6,1923.2" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ReadRange AddHeaders="True" DataTable="[dtMomo]" DisplayName="Read Range Workbook" sap:VirtualizedContainerService.HintSize="575.2,88" sap2010:WorkflowViewState.IdRef="ReadRange_1" Range="A7" SheetName="Data" WorkbookPath="[in_strRawFileName]">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ReadRange>
+          <Assign DisplayName="Assign - Destination file path without date" sap:VirtualizedContainerService.HintSize="575.2,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[strFilePathWithoutDate]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_strFilePath.Substring(0, in_strFilePath.LastIndexOf("\"c))]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:ForEach x:TypeArguments="s:DateTime" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="575.2,1583.2" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[dateTimeRange]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="s:DateTime">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="s:DateTime" Name="dateTime" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="540,1458.4" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="sd:DataTable" Name="dtFilteredMomo" />
+                    <Variable x:TypeArguments="x:Boolean" Name="isFileExist" />
+                    <Variable x:TypeArguments="x:String" Name="strFilePath" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="477.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[dateTime.ToString(&quot;dd/MM/yyyy&quot;)]" />
+                  <ui:FilterDataTable DataTable="[dtMomo]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="477.6,162.4" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dtFilteredMomo]" SelectColumnsMode="Keep">
+                    <ui:FilterDataTable.Filters>
+                      <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+                        <ui:FilterOperationArgument BooleanOperator="And" Operator="CONTAINS">
+                          <ui:FilterOperationArgument.Column>
+                            <InArgument x:TypeArguments="x:Int32">[7]</InArgument>
+                          </ui:FilterOperationArgument.Column>
+                          <ui:FilterOperationArgument.Operand>
+                            <InArgument x:TypeArguments="x:String">[dateTime.ToString("dd/MM/yyyy")]</InArgument>
+                          </ui:FilterOperationArgument.Operand>
+                        </ui:FilterOperationArgument>
+                      </scg:List>
+                    </ui:FilterDataTable.Filters>
+                    <ui:FilterDataTable.SelectColumns>
+                      <scg:List x:TypeArguments="InArgument" Capacity="32">
+                        <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.TransID"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MSl.ParentID"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.SĐT TK"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Total Amount"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Nợ"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Có"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Ngày hoàn thành"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Loại ví"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Loại GD"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Mã HĐơn/ SĐT Nhận"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Phân loại"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Mã sản phẩm"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Mã cửa hàng"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Tên khách hàng"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Mã đối tác"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Mã khác"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Trạng Thái GD"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["Voucher_amount"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Đối tác tài trợ"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["MS.Thanh toán"]</InArgument>
+                      </scg:List>
+                    </ui:FilterDataTable.SelectColumns>
+                  </ui:FilterDataTable>
+                  <Assign sap:VirtualizedContainerService.HintSize="477.6,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[strFilePath]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[Path.Combine(strFilePathWithoutDate, dateTime.ToString("yyyy-MM-dd"), $"Traveloka_{in_TransactionItem.SpecificContent("BPID").ToString()}_{dateTime.ToString("ddMMMyy")}.xlsx")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:PathExists Resource="{x:Null}" DisplayName="Path Exists" Exists="[isFileExist]" sap:VirtualizedContainerService.HintSize="477.6,90.4" sap2010:WorkflowViewState.IdRef="PathExists_2" Path="[strFilePath]" PathType="File" />
+                  <If Condition="[isFileExist]" sap:VirtualizedContainerService.HintSize="477.6,471.2" sap2010:WorkflowViewState.IdRef="If_3">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="400,192.8" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:DeleteFileX DisplayName="Delete File" sap:VirtualizedContainerService.HintSize="337.6,80.8" sap2010:WorkflowViewState.IdRef="DeleteFileX_1" Path="[strFilePath]" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="400,83.2" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                  <ui:WriteRange StartingCell="{x:Null}" AddHeaders="True" DataTable="[dtFilteredMomo]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="477.6,116" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Data" WorkbookPath="[strFilePath]" />
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="AddQueueItem.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="477.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Custom_Flow\AddQueueItem.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                        <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">
+                        <VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="in_TransactionItem" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="s:DateTime" x:Key="in_datePeriod">
+                        <VisualBasicValue x:TypeArguments="s:DateTime" ExpressionText="dateTime" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_strFilePath">
+                        <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Path.Combine(strFilePathWithoutDate, dateTime.ToString(&quot;yyyy-MM-dd&quot;), $&quot;Traveloka_{in_TransactionItem.SpecificContent(&quot;BPID&quot;).ToString()}_{dateTime.ToString(&quot;ddMMMyy&quot;)}.xlsx&quot;)" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">
+                        <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_strRawFileName" />
+                      </InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+          </ui:ForEach>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence sap:VirtualizedContainerService.HintSize="540,1067.2" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Boolean" Name="isFilePathExist" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:PathExists Resource="{x:Null}" DisplayName="Path Exists" Exists="[isFilePathExist]" sap:VirtualizedContainerService.HintSize="477.6,90.4" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_strFilePath]" PathType="File" />
+          <If Condition="[Not isFilePathExist]" sap:VirtualizedContainerService.HintSize="477.6,476" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="400,192.8" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:CreateDirectory ContinueOnError="{x:Null}" Output="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="337.6,80.8" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[in_strFilePath]" />
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence sap:VirtualizedContainerService.HintSize="400,104.8" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </Sequence>
+            </If.Else>
+          </If>
+          <ui:CopyFile ContinueOnError="{x:Null}" Destination="[Path.Combine(in_strFilePath, $&quot;Traveloka_{in_TransactionItem.SpecificContent(&quot;BPID&quot;).ToString()}_{dateTimeRange(0).ToString(&quot;ddMMMyy&quot;)}.xlsx&quot;)]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="477.6,155.2" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_strRawFileName]" />
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="AddQueueItem.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="477.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Custom_Flow\AddQueueItem.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+              </InArgument>
+              <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">
+                <VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="in_TransactionItem" />
+              </InArgument>
+              <InArgument x:TypeArguments="s:DateTime" x:Key="in_datePeriod">
+                <VisualBasicValue x:TypeArguments="s:DateTime" ExpressionText="in_datePeriod" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_strFilePath">
+                <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Path.Combine(in_strFilePath, $&quot;Traveloka_{in_TransactionItem.SpecificContent(&quot;BPID&quot;).ToString()}_{dateTimeRange(0).ToString(&quot;ddMMMyy&quot;)}.xlsx&quot;)" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">
+                <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_strRawFileNameQueue" />
+              </InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </Sequence>
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>
