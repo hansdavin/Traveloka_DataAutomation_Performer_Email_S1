@@ -12,7 +12,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>760,3692</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>845.6,3672.8</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>DownloadFileUrl_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="31">
@@ -106,7 +106,7 @@
       <AssemblyReference>System.Linq.Async</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="DownloadFileUrl" sap:VirtualizedContainerService.HintSize="750.4,3627.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="DownloadFileUrl" sap:VirtualizedContainerService.HintSize="750.4,3608" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="str:MatchCollection" Name="mcolDownloadLinks" />
       <Variable x:TypeArguments="x:String" Name="strCommand" />
@@ -159,7 +159,7 @@
         <InArgument x:TypeArguments="x:String" x:Key="in_assetName">[in_Config("GlobalVarAsset").ToString]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <If Condition="[mcolDownloadLinks.Count() &gt; 0]" DisplayName="If link found download, else throw business exception" sap:VirtualizedContainerService.HintSize="688,2902.4" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[mcolDownloadLinks.Count() &gt; 0]" DisplayName="If link found download, else throw business exception" sap:VirtualizedContainerService.HintSize="688,2883.2" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -167,33 +167,33 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="654.4,2719.2" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence sap:VirtualizedContainerService.HintSize="654.4,2700" sap2010:WorkflowViewState.IdRef="Sequence_6">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="611.2,2629.6" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[mcolDownloadLinks]">
+          <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="611.2,2610.4" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[mcolDownloadLinks]">
             <ui:ForEach.Body>
               <ActivityAction x:TypeArguments="x:Object">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="x:Object" Name="downloadLink" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="576,2504.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="576,2485.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <If Condition="[downloadLink.ToString().Contains(&quot;rpa_acc&quot;)]" DisplayName="If the link contains rpa_acc" sap:VirtualizedContainerService.HintSize="513.6,2392.8" sap2010:WorkflowViewState.IdRef="If_2">
+                  <If Condition="[downloadLink.ToString().Contains(&quot;rpa_acc&quot;)]" DisplayName="If the link contains rpa_acc" sap:VirtualizedContainerService.HintSize="513.6,2373.6" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
-                      <Sequence sap:VirtualizedContainerService.HintSize="480,2004.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                      <Sequence sap:VirtualizedContainerService.HintSize="480,2008" sap2010:WorkflowViewState.IdRef="Sequence_3">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign - remove unnecessary symbol" sap:VirtualizedContainerService.HintSize="436.8,80.8" sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign DisplayName="Assign - remove unnecessary symbol" sap:VirtualizedContainerService.HintSize="436.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_2">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Object">[downloadLink]</OutArgument>
                           </Assign.To>
@@ -207,7 +207,7 @@
                             <InArgument x:TypeArguments="x:String" x:Key="in_downloadLink">[downloadLink.ToString()]</InArgument>
                           </ui:InvokeCode.Arguments>
                         </ui:InvokeCode>
-                        <Assign sap:VirtualizedContainerService.HintSize="436.8,80.8" sap2010:WorkflowViewState.IdRef="Assign_3">
+                        <Assign sap:VirtualizedContainerService.HintSize="436.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_3">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[strRawFilePath]</OutArgument>
                           </Assign.To>
@@ -215,7 +215,7 @@
                             <InArgument x:TypeArguments="x:String">[Path.Combine(in_dicPath("strRawFilePath"), in_TransactionItem.SpecificContent("Key").ToString(), in_datePeriod.Year.ToString, in_datePeriod.ToString("yyyy-MM-dd"))]</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <Assign sap:VirtualizedContainerService.HintSize="436.8,80.8" sap2010:WorkflowViewState.IdRef="Assign_4">
+                        <Assign sap:VirtualizedContainerService.HintSize="436.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_4">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[strFilePath]</OutArgument>
                           </Assign.To>
@@ -224,7 +224,7 @@
                           </Assign.Value>
                         </Assign>
                         <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="436.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[in_TransactionItem.SpecificContent(&quot;PID&quot;).ToString + &quot;: Download link - &quot; + downloadLink.ToString()]" />
-                        <ui:InvokeCode ContinueOnError="{x:Null}" Code="if (!Directory.Exists(in_strRawFilePath))&#xA;{&#xA;    Directory.CreateDirectory(in_strRawFilePath);&#xA;}&#xA;&#xA;string strFilePathWithoutDate = in_strFilePath.Substring(0, in_strFilePath.LastIndexOf('\\'));&#xA;if (!Directory.Exists(strFilePathWithoutDate))&#xA;{&#xA;    Directory.CreateDirectory(strFilePathWithoutDate);&#xA;}" DisplayName="Invoke Code - Create folder if not exists" sap:VirtualizedContainerService.HintSize="436.8,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
+                        <ui:InvokeCode ContinueOnError="{x:Null}" Code="if (!Directory.Exists(in_strRawFilePath))&#xD;&#xA;{&#xD;&#xA;&#x9;Console.WriteLine(&quot;Create new raw folder&quot;);&#xD;&#xA;    Directory.CreateDirectory(in_strRawFilePath);&#xD;&#xA;}&#xD;&#xA;else&#xD;&#xA;{&#xD;&#xA;&#x9;Console.WriteLine(&quot;Recreate raw folder&quot;);&#xD;&#xA;    Directory.Delete(in_strRawFilePath, true);&#xD;&#xA;&#x9;Directory.CreateDirectory(in_strRawFilePath);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;string strFilePathWithoutDate = in_strFilePath.Substring(0, in_strFilePath.LastIndexOf('\\'));&#xD;&#xA;if (!Directory.Exists(strFilePathWithoutDate))&#xD;&#xA;{&#xD;&#xA;    Directory.CreateDirectory(strFilePathWithoutDate);&#xD;&#xA;}&#xD;&#xA;" DisplayName="Invoke Code - Create folder if not exists" sap:VirtualizedContainerService.HintSize="436.8,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
                           <ui:InvokeCode.Arguments>
                             <InArgument x:TypeArguments="x:String" x:Key="in_strRawFilePath">[strRawFilePath]</InArgument>
                             <InArgument x:TypeArguments="x:String" x:Key="in_strFilePath">[strFilePath]</InArgument>
@@ -232,7 +232,7 @@
                         </ui:InvokeCode>
                         <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="436.8,396" sap2010:WorkflowViewState.IdRef="TryCatch_1">
                           <TryCatch.Try>
-                            <ui:InvokeCode Code="using (System.Net.WebClient w = new System.Net.WebClient())&#xA;{&#xA;&#x9;// Check if the file already exists&#xA;    if (File.Exists(Path.Combine(in_strRawFilePath, in_strRawFileName)))&#xA;    {&#xA;        File.Delete(Path.Combine(in_strRawFilePath, in_strRawFileName));&#xA;    }&#xA;    w.DownloadFile(in_strDownloadLink, Path.Combine(in_strRawFilePath, in_strRawFileName));&#xA;}" ContinueOnError="False" DisplayName="Invoke Code - Download file overwrite" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_3" Language="CSharp">
+                            <ui:InvokeCode Code="using (System.Net.WebClient w = new System.Net.WebClient())&#xD;&#xA;{&#xD;&#xA;    w.DownloadFile(in_strDownloadLink, Path.Combine(in_strRawFilePath, in_strRawFileName));&#xD;&#xA;}" ContinueOnError="False" DisplayName="Invoke Code - Download file" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_3" Language="CSharp">
                               <ui:InvokeCode.Arguments>
                                 <InArgument x:TypeArguments="x:String" x:Key="in_strDownloadLink">[downloadLink.ToString()]</InArgument>
                                 <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">[strRawFileName]</InArgument>
@@ -242,7 +242,7 @@
                             </ui:InvokeCode>
                           </TryCatch.Try>
                           <TryCatch.Catches>
-                            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -258,7 +258,7 @@
                             </Catch>
                           </TryCatch.Catches>
                         </TryCatch>
-                        <Assign sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_9">
+                        <Assign sap:VirtualizedContainerService.HintSize="436.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_9">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[strRawFileNameQueue]</OutArgument>
                           </Assign.To>
@@ -266,7 +266,7 @@
                             <InArgument x:TypeArguments="x:String">[Path.Combine(strRawFilePath, strRawFileName)]</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ExtractFiles.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="433.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Custom_Flow\ExtractFiles.xaml">
+                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ExtractFiles.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="436.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Custom_Flow\ExtractFiles.xaml">
                           <ui:InvokeWorkflowFile.Arguments>
                             <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">[strRawFileName]</InArgument>
                             <InArgument x:TypeArguments="x:String" x:Key="in_strRawFilePath">[strRawFilePath]</InArgument>
@@ -274,7 +274,7 @@
                             <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
                           </ui:InvokeWorkflowFile.Arguments>
                         </ui:InvokeWorkflowFile>
-                        <Assign sap:VirtualizedContainerService.HintSize="433.6,80.8" sap2010:WorkflowViewState.IdRef="Assign_8">
+                        <Assign sap:VirtualizedContainerService.HintSize="436.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_8">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[out_strRawFilePath]</OutArgument>
                           </Assign.To>
@@ -282,7 +282,7 @@
                             <InArgument x:TypeArguments="x:String">[strRawFileName]</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="SplitExcelFile.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="337.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Custom_Flow\SplitExcelFile.xaml">
+                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="SplitExcelFile.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="436.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Custom_Flow\SplitExcelFile.xaml">
                           <ui:InvokeWorkflowFile.Arguments>
                             <InArgument x:TypeArguments="x:String" x:Key="in_strRawFilePath">[strRawFilePath]</InArgument>
                             <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileName">[strRawFileName]</InArgument>
@@ -296,17 +296,17 @@
                             <InArgument x:TypeArguments="x:String" x:Key="in_strRawFileNameQueue">[strRawFileNameQueue]</InArgument>
                           </ui:InvokeWorkflowFile.Arguments>
                         </ui:InvokeWorkflowFile>
-                        <ui:Break sap:VirtualizedContainerService.HintSize="337.6,24.8" sap2010:WorkflowViewState.IdRef="Break_1" />
+                        <ui:Break sap:VirtualizedContainerService.HintSize="436.8,24.8" sap2010:WorkflowViewState.IdRef="Break_1" />
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence sap:VirtualizedContainerService.HintSize="400,204.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                      <Sequence sap:VirtualizedContainerService.HintSize="376.8,182.4" sap2010:WorkflowViewState.IdRef="Sequence_5">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="337.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;This is not download link: &quot; + downloadLink.ToString()]" />
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;This is not download link: &quot; + downloadLink.ToString()]" />
                       </Sequence>
                     </If.Else>
                   </If>
