@@ -8,7 +8,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>845.6,4210.4</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>845.6,3911.2</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ExtractFiles_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -114,9 +114,11 @@
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Linq.Async.Queryable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ExtractFiles" sap:VirtualizedContainerService.HintSize="791.2,4145.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ExtractFiles" sap:VirtualizedContainerService.HintSize="724.8,3846.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="s:String[]" Name="arrExtensionToCheck" />
       <Variable x:TypeArguments="x:String" Name="strCommand" />
@@ -135,7 +137,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign DisplayName="Assign - Archived file ext" sap:VirtualizedContainerService.HintSize="728.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="Assign - Archived file ext" sap:VirtualizedContainerService.HintSize="662.4,81.6" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="s:String[]">[arrExtensionToCheck]</OutArgument>
       </Assign.To>
@@ -143,7 +145,7 @@
         <InArgument x:TypeArguments="s:String[]">[{".zip", ".rar", ".7z"}]</InArgument>
       </Assign.Value>
     </Assign>
-    <If sap2010:Annotation.AnnotationText="" Condition="[arrExtensionToCheck.Any(Function(ext) in_strRawFileName.Contains(ext))]" DisplayName="If - raw file name contains archived file ext, extract first" sap:VirtualizedContainerService.HintSize="728.8,3912" sap2010:WorkflowViewState.IdRef="If_1">
+    <If sap2010:Annotation.AnnotationText="" Condition="[arrExtensionToCheck.Any(Function(ext) in_strRawFileName.Contains(ext))]" DisplayName="If - raw file name contains archived file ext, extract first" sap:VirtualizedContainerService.HintSize="662.4,3612.8" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -152,13 +154,16 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="695.2,3392.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence sap:VirtualizedContainerService.HintSize="628.8,3094.4" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Int32" Name="intListFileIndex" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <If Condition="[Not String.IsNullOrEmpty(in_TransactionItem.SpecificContent(&quot;Credential&quot;).ToString)]" DisplayName="If credential field not empty in config, then extract with password" sap:VirtualizedContainerService.HintSize="652,951.2" sap2010:WorkflowViewState.IdRef="If_3">
+          <If Condition="[Not String.IsNullOrEmpty(in_TransactionItem.SpecificContent(&quot;Credential&quot;).ToString)]" DisplayName="If credential field not empty in config, then extract with password" sap:VirtualizedContainerService.HintSize="585.6,951.2" sap2010:WorkflowViewState.IdRef="If_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -217,7 +222,7 @@
               </Sequence>
             </If.Else>
           </If>
-          <If Condition="[Path.GetExtension(in_strRawFileName).Contains(&quot;zip&quot;)]" sap:VirtualizedContainerService.HintSize="652,896.8" sap2010:WorkflowViewState.IdRef="If_5">
+          <If Condition="[Path.GetExtension(in_strRawFileName).Contains(&quot;zip&quot;)]" sap:VirtualizedContainerService.HintSize="585.6,896.8" sap2010:WorkflowViewState.IdRef="If_5">
             <If.Then>
               <Sequence sap:VirtualizedContainerService.HintSize="376.8,431.2" sap2010:WorkflowViewState.IdRef="Sequence_11">
                 <sap:WorkflowViewStateService.ViewState>
@@ -245,7 +250,7 @@
               </Sequence>
             </If.Else>
           </If>
-          <Assign DisplayName="Assign - get all files inside raw file path" sap:VirtualizedContainerService.HintSize="652,81.6" sap2010:WorkflowViewState.IdRef="Assign_3">
+          <Assign DisplayName="Assign - get all files inside raw file path" sap:VirtualizedContainerService.HintSize="585.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_3">
             <Assign.To>
               <OutArgument x:TypeArguments="s:String[]">[arrRawFileNames]</OutArgument>
             </Assign.To>
@@ -253,27 +258,33 @@
               <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(in_strRawFilePath)]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="652,1253.6" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[arrRawFileNames]">
+          <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[intListFileIndex]" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="585.6,955.2" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[arrRawFileNames]">
             <ui:ForEach.Body>
               <ActivityAction x:TypeArguments="x:String">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="x:String" Name="rawFileName" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="616.8,1128.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="550.4,830.4" sap2010:WorkflowViewState.IdRef="Sequence_4">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <If Condition="[Not arrExtensionToCheck.Any(Function(ext) rawFileName.Contains(ext))]" sap:VirtualizedContainerService.HintSize="554.4,1016.8" sap2010:WorkflowViewState.IdRef="If_2">
+                  <If Condition="[Not arrExtensionToCheck.Any(Function(ext) rawFileName.Contains(ext))]" sap:VirtualizedContainerService.HintSize="488,718.4" sap2010:WorkflowViewState.IdRef="If_2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <Sequence sap:VirtualizedContainerService.HintSize="520.8,661.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                      <Sequence sap:VirtualizedContainerService.HintSize="476.8,639.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign - filename without rar ext" sap:VirtualizedContainerService.HintSize="477.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_4">
+                        <Assign DisplayName="Assign - filename without rar ext" sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_4">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[out_strRawFileName]</OutArgument>
                           </Assign.To>
@@ -281,15 +292,15 @@
                             <InArgument x:TypeArguments="x:String">[rawFileName]</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <If Condition="[Not new System.IO.FileInfo(rawFileName).Length &gt; 0]" DisplayName="If - Extracted file size is 0, then throw" sap:VirtualizedContainerService.HintSize="477.6,385.6" sap2010:WorkflowViewState.IdRef="If_4">
+                        <If Condition="[Not new System.IO.FileInfo(rawFileName).Length &gt; 0]" DisplayName="If - Extracted file size is 0, then throw" sap:VirtualizedContainerService.HintSize="433.6,363.2" sap2010:WorkflowViewState.IdRef="If_4">
                           <If.Then>
-                            <Sequence sap:VirtualizedContainerService.HintSize="400,202.4" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                            <Sequence sap:VirtualizedContainerService.HintSize="377.6,180" sap2010:WorkflowViewState.IdRef="Sequence_9">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <Throw Exception="[new Exception(&quot;Extracted file size is 0. Possibly wrong password while extracting.&quot;)]" sap:VirtualizedContainerService.HintSize="337.6,90.4" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                              <Throw Exception="[new Exception(&quot;Extracted file size is 0. Possibly wrong password while extracting.&quot;)]" sap:VirtualizedContainerService.HintSize="334.4,90.4" sap2010:WorkflowViewState.IdRef="Throw_1" />
                             </Sequence>
                           </If.Then>
                           <If.Else>
@@ -303,24 +314,43 @@
                             </Sequence>
                           </If.Else>
                         </If>
-                        <ui:Break sap:VirtualizedContainerService.HintSize="477.6,24.8" sap2010:WorkflowViewState.IdRef="Break_1" />
+                        <ui:Break sap:VirtualizedContainerService.HintSize="433.6,24.8" sap2010:WorkflowViewState.IdRef="Break_1" />
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence sap:VirtualizedContainerService.HintSize="400,172" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                      <Sequence sap:VirtualizedContainerService.HintSize="454.4,535.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign sap:VirtualizedContainerService.HintSize="337.6,60" sap2010:WorkflowViewState.IdRef="Assign_9">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="x:String">[out_strRawFileName]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="x:String">[Path.Combine(in_strRawFilePath, in_strRawFileName)]</InArgument>
-                          </Assign.Value>
-                        </Assign>
+                        <If Condition="[intListFileIndex = (arrRawFileNames.Count - 1)]" DisplayName="If - Last index throw" sap:VirtualizedContainerService.HintSize="411.2,445.6" sap2010:WorkflowViewState.IdRef="If_6">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If.Then>
+                            <Sequence sap:VirtualizedContainerService.HintSize="377.6,180" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Throw Exception="[new Exception(&quot;Extraction failed.&quot;)]" sap:VirtualizedContainerService.HintSize="334.4,90.4" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                            </Sequence>
+                          </If.Then>
+                          <If.Else>
+                            <Sequence sap:VirtualizedContainerService.HintSize="300,82.4" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </Sequence>
+                          </If.Else>
+                        </If>
                       </Sequence>
                     </If.Else>
                   </If>
@@ -337,14 +367,14 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="400,304.8" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence sap:VirtualizedContainerService.HintSize="476.8,304" sap2010:WorkflowViewState.IdRef="Sequence_6">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="337.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[in_TransactionItem.SpecificContent(&quot;PID&quot;).ToString + &quot;: No need unzip...&quot;]" />
-          <Assign DisplayName="Assign - return the same filename as input arg" sap:VirtualizedContainerService.HintSize="337.6,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="433.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[in_TransactionItem.SpecificContent(&quot;PID&quot;).ToString + &quot;: No need unzip...&quot;]" />
+          <Assign DisplayName="Assign - return the same filename as input arg" sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_8">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[out_strRawFileName]</OutArgument>
             </Assign.To>
