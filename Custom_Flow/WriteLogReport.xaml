@@ -20,7 +20,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>845.6,4256.8</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>845.6,4234.4</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>WriteLogReport_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="60">
@@ -55,6 +55,7 @@
       <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Globalization</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -119,9 +120,10 @@
       <AssemblyReference>System.Linq.Parallel</AssemblyReference>
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
       <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="WriteLogReport" sap:VirtualizedContainerService.HintSize="747.2,4192" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="WriteLogReport" sap:VirtualizedContainerService.HintSize="747.2,4169.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="sheetName" />
       <Variable x:TypeArguments="x:String" Name="rowDate" />
@@ -159,7 +161,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <If Condition="[in_listStartEndRange IsNot Nothing AndAlso in_listStartEndRange.Count &gt; 0]" sap:VirtualizedContainerService.HintSize="684.8,3750.4" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[in_listStartEndRange IsNot Nothing AndAlso in_listStartEndRange.Count &gt; 0]" sap:VirtualizedContainerService.HintSize="684.8,3728" sap2010:WorkflowViewState.IdRef="If_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -243,7 +245,7 @@
                                   <OutArgument x:TypeArguments="x:String">[in_strPathLog]</OutArgument>
                                 </ui:AssignOperation.To>
                                 <ui:AssignOperation.Value>
-                                  <InArgument x:TypeArguments="x:String">[in_strPathLog.Replace(strYearLog, dateTime.Year.ToString)]</InArgument>
+                                  <InArgument x:TypeArguments="x:String">[Regex.Replace(in_strPathLog, $"(?&lt;!RPA\d*){strYearLog}", dateTime.Year.ToString)]</InArgument>
                                 </ui:AssignOperation.Value>
                               </ui:AssignOperation>
                             </scg:List>
@@ -323,7 +325,7 @@
                           <OutArgument x:TypeArguments="x:String">[in_strPathLog]</OutArgument>
                         </ui:AssignOperation.To>
                         <ui:AssignOperation.Value>
-                          <InArgument x:TypeArguments="x:String">[in_strPathLog.Replace(strYearLog, in_dateEndPeriod.Year.ToString)]</InArgument>
+                          <InArgument x:TypeArguments="x:String">[Regex.Replace(in_strPathLog, $"(?&lt;!RPA\d*){strYearLog}", in_dateEndPeriod.Year.ToString)]</InArgument>
                         </ui:AssignOperation.Value>
                       </ui:AssignOperation>
                     </scg:List>
@@ -357,7 +359,7 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="496,832.8" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence sap:VirtualizedContainerService.HintSize="476.8,810.4" sap2010:WorkflowViewState.IdRef="Sequence_6">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
